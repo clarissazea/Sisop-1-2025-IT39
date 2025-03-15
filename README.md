@@ -522,3 +522,173 @@ while true; do
     read -p "Press Enter to continue..."
 done
 ```
+
+
+
+
+# Soal_4
+
+A. Melihat Summary dari Data
+```bash
+show_summary() {
+    highest_usage=$(awk -F',' 'NR>1 {if($2>max_usage){max_usage=$2; name=$1}} END {print name " with " max_usage "%"}' "$FILE")
+    highest_raw=$(awk -F',' 'NR>1 {if($3>max_raw){max_raw=$3; name=$1}} END {print name " with " max_raw " uses"}' "$FILE")
+    echo "Summary of $FILE"
+    echo "Highest Adjusted Usage: $highest_usage"
+    echo "Highest Raw Usage: $highest_raw"
+}
+```
+- highest_usage: Menggunakan awk untuk mencari Pokemon dengan persentase penggunaan tertinggi ($2 adalah kolom Adjusted Usage %).
+- highest_raw: Menggunakan awk untuk mencari Pokemon dengan penggunaan mentah tertinggi ($3 adalah kolom Raw Usage count).
+  
+B. Mengurutkan Pokemon Berdasarkan Data Kolom
+```bash
+sort_by_column() {
+    if [ -z "$ARGUMENT" ]; then
+        echo "Error: No sorting column provided"
+        exit 1
+    fi
+
+    header=$(head -n 1 "$FILE")
+    case "$ARGUMENT" in
+        usage) col=2 ;;
+        raw) col=3 ;;
+        hp) col=6 ;;
+        atk) col=7 ;;
+        def) col=8 ;;
+        spatk) col=9 ;;
+        spdef) col=10 ;;
+        speed) col=11 ;;
+        name) col=1 ;; # Sort ascending
+        *)
+            echo "Error: Invalid sorting column"
+            exit 1
+            ;;
+    esac
+
+    echo "$header"
+    if [ "$col" -eq 1 ]; then
+        tail -n +2 "$FILE" | sort -t',' -k"$col"
+    else
+        tail -n +2 "$FILE" | sort -t',' -k"$col" -nr
+    fi
+}
+```
+C. Mencari Nama Pokemon Tertentu
+```bash
+search_pokemon() {
+    if [ -z "$ARGUMENT" ]; then
+        echo "Error: No Pokemon name provided"
+        exit 1
+    fi
+
+    header=$(head -n 1 "$FILE")
+    result=$(grep -i "^$ARGUMENT," "$FILE")
+
+    if [ -z "$result" ]; then
+        echo "Error: No matching Pokemon found"
+        exit 1
+    fi
+
+    echo "$header"
+    echo "$result"
+}
+```
+
+D. Mencari Pokemon Berdasarkan Filter Nama Type
+```bash
+filter_by_type() {
+    if [ -z "$ARGUMENT" ]; then
+        echo "Error: No type provided"
+        exit 1
+    fi
+
+    header=$(head -n 1 "$FILE")
+    result=$(awk -F',' -v type="$ARGUMENT" 'NR==1 || $4 == type || $5 == type' "$FILE" | sort -t',' -k2 -nr)
+
+    if [ -z "$result" ]; then
+        echo "Error: No Pokemon found for type '$ARGUMENT'"
+        exit 1
+    fi
+
+    echo "$result"
+}
+```
+
+E. Error Handling
+```base
+# Cek jika tidak ada argumen
+if [ $# -lt 2 ]; then
+    echo "Usage: ./pokemon_analysis.sh data.csv [options]"
+    echo "Try './pokemon_analysis.sh --help' for more information."
+    exit 1
+fi
+
+# Cek ada file?
+if [ ! -f "$FILE" ]; then
+    echo "Error: File '$FILE' not found!"
+    exit 1
+fi
+```
+- Fungsi: Menangani kesalahan input pengguna.
+- Memeriksa apakah jumlah argumen kurang dari 2 ($# -lt 2). Jika ya, tampilkan pesan penggunaan dan keluar.
+- Memeriksa apakah file yang diberikan ada (-f "$FILE"). Jika tidak, tampilkan pesan error dan keluar.
+
+F. Help Screen yang Menarik
+```base
+# Jika user mengetik --help atau -h
+if [[ "$OPTION" == "--help" || "$OPTION" == "-h" ]]; then
+    echo "Usage: ./pokemon_analysis.sh data.csv [options]"
+    echo ""
+    echo "Options:"
+    echo "  --info            Display top-used Pokemon."
+    echo "  --sort <column>   Sort by specified column."
+    echo "                      Available columns:"
+    echo "                        - usage   (Adjusted Usage %)"
+    echo "                        - raw     (Raw Usage count)"
+    echo "                        - name    (Pokemon name, alphabetical order)"
+    echo "                        - hp      (Hit Points)"
+    echo "                        - atk     (Physical Attack)"
+    echo "                        - def     (Physical Defense)"
+    echo "                        - spatk   (Special Attack)"
+    echo "                        - spdef   (Special Defense)"
+    echo "                        - speed   (Speed)"
+    echo "  --grep <name>     Search for a specific Pokemon."
+    echo "  --filter <type>   Filter by type."
+    echo "  -h, --help        Show this help screen."
+    exit 0
+fi
+```
+- Fungsi: Menampilkan layar bantuan yang informatif.
+- Menampilkan petunjuk penggunaan skrip, termasuk opsi yang tersedia dan deskripsi singkat.
+
+G. Main Script
+```base
+#!/bin/bash
+
+# Bersihkan terminal dan tampilkan ASCII Art
+clear
+echo -e "\e[33m$(figlet -f big 'PoKeMoN')\e[0m"
+
+# Baca parameter
+FILE=$1
+OPTION=$2
+ARGUMENT=$3
+
+# Menjalankan fitur sesuai dengan pilihan
+case "$OPTION" in
+    --info) show_summary ;;
+    --sort) sort_by_column ;;
+    --grep) search_pokemon ;;
+    --filter) filter_by_type ;;
+    *)
+        echo "Error: Invalid option '$OPTION'"
+        echo "Use --help for more information."
+        exit 1
+        ;;
+esac
+```
+- fungsi: Menjalankan skrip utama.
+- Membersihkan terminal dan menampilkan ASCII Art menggunakan figlet.
+- Membaca parameter yang diberikan pengguna ($1, $2, $3).
+- Menggunakan case untuk menjalankan fungsi yang sesuai berdasarkan opsi yang dipilih.
