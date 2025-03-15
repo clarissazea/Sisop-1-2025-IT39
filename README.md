@@ -299,38 +299,51 @@ $ nano core_monitor.sh
 ```bash
 #!/bin/bash
 
-# Mengambil model CPU dari sistem
+LOG_DIR="./log"
+LOG_FILE="$LOG_DIR/core.log"
+
+# Pastikan folder log ada
+mkdir -p "$LOG_DIR"
+
+# Ambil model CPU dari sistem
 CPU_MODEL=$(grep "model name" /proc/cpuinfo | head -n 1 | cut -d ':' -f2 | sed 's/^ *//')
 
-# Menghitung penggunaan CPU
+# Fungsi untuk menghitung penggunaan CPU
 get_cpu_usage() {
-    # Ambil data pertama dari /proc/stat
-    CPU=($(head -n1 /proc/stat))
-    
-    # Menghitung total waktu CPU
-    IDLE_TIME=${CPU[4]}
-    TOTAL_TIME=0
-    for VALUE in "${CPU[@]:1}"; do
-        TOTAL_TIME=$((TOTAL_TIME + VALUE))
-    done
-    
-    echo "$TOTAL_TIME $IDLE_TIME"
+    if command -v mpstat &> /dev/null; then
+        CPU_USAGE=$(mpstat 1 1 | awk '/Average:/ {printf "%.2f", 100 - $NF}')
+    else
+        read -ra CPU < <(head -n1 /proc/stat)  
+        IDLE_TIME=${CPU[4]}  
+        TOTAL_TIME=0
+        for VALUE in "${CPU[@]:1}"; do
+            ((TOTAL_TIME += VALUE))  
+        done
+        echo "$TOTAL_TIME $IDLE_TIME"
+    fi
 }
 
-# Mengambil nilai awal CPU
-FIRST_MEASURE=($(get_cpu_usage))
-sleep 1  # Tunggu 1 detik
-SECOND_MEASURE=($(get_cpu_usage))
+# Jika mpstat tidak ada, gunakan metode manual
+if ! command -v mpstat &> /dev/null; then
+    FIRST_MEASURE=($(get_cpu_usage))
+    sleep 1
+    SECOND_MEASURE=($(get_cpu_usage))
 
-# Menghitung perubahan waktu CPU
-TOTAL_DIFF=$((SECOND_MEASURE[0] - FIRST_MEASURE[0]))
-IDLE_DIFF=$((SECOND_MEASURE[1] - FIRST_MEASURE[1]))
+    TOTAL_DIFF=$((SECOND_MEASURE[0] - FIRST_MEASURE[0]))
+    IDLE_DIFF=$((SECOND_MEASURE[1] - FIRST_MEASURE[1]))
 
-# Menghitung CPU usage dengan angka desimal (2 angka di belakang koma)
-CPU_USAGE=$(echo "scale=2; (100 * ($TOTAL_DIFF - $IDLE_DIFF)) / $TOTAL_DIFF" | bc)
-if (( $(echo "$CPU_USAGE < 1" | bc -l) )); then
-    CPU_USAGE="0$CPU_USAGE"
+    if [[ $TOTAL_DIFF -eq 0 ]]; then
+        CPU_USAGE="0.00"
+    else
+        CPU_USAGE=$(echo "scale=2; (100 * ($TOTAL_DIFF - $IDLE_DIFF)) / $TOTAL_DIFF" | bc)
+    fi
 fi
+
+# Format timestamp
+TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
+
+# Simpan ke log file
+echo "[$TIMESTAMP] - Core Usage [$CPU_USAGE%] - Terminal Model [$CPU_MODEL]" >> "$LOG_FILE"
 ```
 ```bash
 chmod +x scripts/core_monitor.sh
