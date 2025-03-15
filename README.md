@@ -612,16 +612,18 @@ Fitur: Menampilkan efek matrix dengan simbol mata uang.
 ```bash
 Money() {
         clear
-        chars="$€£¥¢₹₩₿₣"
-        cols=$(tput cols)
-        rows=$(tput lines)
-        while true; do
-                col=$((RANDOM % cols))
-                char=${chars:RANDOM%${#chars}:1}
-                tput cup $((RANDOM % rows)) $col
-                echo -e "\e[1;32m$char\e[0m"
+        uang="$€£¥¢₹₩₿₣"
+        y=$(tput cols)
+        x=$(tput lines)
+        while true
+        do
+                y2=$((RANDOM % y))
+                uang2=${uang:RANDOM%${#uang}:1}
+                tput cup $((RANDOM % x)) $y2
+                echo "$uang2"
                 sleep 0.07
         done
+
 }
 ```
 
@@ -631,7 +633,7 @@ Fitur: Menampilkan daftar proses yang sedang berjalan, diperbarui setiap detik.
 BrainDmg() {
         while true; do
                 clear
-                ps -eo pid,comm --sort=-%mem | head -n 10
+                ps aux --sort=-%cpu | awk '{print $1, $2, $3, $4, $7, $10, $11}' | head -n 25
                 sleep 1
         done
 }
