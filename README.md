@@ -5,7 +5,14 @@
 </div>
 
 # Soal_1
-a. halo
+a. Membuat Direktori dan Masuk ke Direktori
+```bash
+mkdir soal_1 && cd soal_1
+```
+b. Membuat File Script. File script ini akan berisi perintah-perintah untuk memproses data dari reading_data.csv.
+```bash
+nano poppo_siroyo.sh
+```
 
 
 # Soal_2
