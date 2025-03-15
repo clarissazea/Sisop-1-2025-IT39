@@ -552,11 +552,11 @@ done
 ```
 
 # Soal_3
-Membuat file dsotm.sh
+## Membuat File dsotm.sh
 ```bash
 nano dsotm.sh
 ```
-a. Speak to Me  
+## a. Speak to Me  
 Fitur: Memanggil API untuk menampilkan word of affirmation setiap detik.
 ```bash
 SpeakToMe() {
@@ -568,22 +568,31 @@ SpeakToMe() {
 }
 ```
 
-b. On the Run  
+## b. On the Run  
 Fitur: Menampilkan progress bar dengan interval random antara 0.1 hingga 1 detik.
 ```bash
 OnTheRun() {
-        clear
-        echo "ᗷᕮᑎTᗩᖇ Yᕼ"
-        echo -n "["
-        for i in $(seq 1 170); do
-                sleep $(awk -v min=0.1 -v max=1 'BEGIN{srand(); print min+rand()*(max-min)}')
-                echo -n "#"
+        j=170
+        i=0
+        until [ $i -eq $j ]
+        do
+                clear
+                echo "ᗷᕮᑎTᗩᖇ Yᕼ"
+                echo -n "["
+                for ((x=0; x<i; x++))
+                do
+                        echo -n "#"
+                done
+                echo -n "] $(( (i * 100) / j ))%"
+                sleep $(awk -v min=0.1 -v max=1 'BEGIN{srand(); print min+rand() * (max-min)}')
+                i=$((i + 1))
         done
-        echo "] SᕮᒪᕮSᗩI !!"
+        echo " "
+        echo "SᕮᒪᕮSᗩI !!"
 }
 ```
 
-c. Time  
+## c. Time  
 Fitur: Menampilkan live clock dengan update setiap detik.
 ```bash
 Time() {
@@ -598,7 +607,7 @@ Time() {
 }
 ```
 
-d. Money  
+## d. Money  
 Fitur: Menampilkan efek matrix dengan simbol mata uang.
 ```bash
 Money() {
@@ -616,7 +625,7 @@ Money() {
 }
 ```
 
-e. Brain Damage  
+## e. Brain Damage  
 Fitur: Menampilkan daftar proses yang sedang berjalan, diperbarui setiap detik.
 ```bash
 BrainDmg() {
@@ -627,7 +636,15 @@ BrainDmg() {
         done
 }
 ```
-
+## Memberi Izin Eksekusi
+```bash
+chmod +x dsotm.sh
+```
+## Menjalankan Program
+```bash
+./dsotm.sh --play="<Track>"
+```
+Ket. : <Track> diganti lagu yang dipilih
 
 # Soal_4
 
