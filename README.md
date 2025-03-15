@@ -232,3 +232,4 @@ Ubah sedikit dengan menambahkan kondisi sesuai aturan (minimal 8 karakter, 1 hur
     fi
 ```
 c. “Unceasing Spirit”  
+
