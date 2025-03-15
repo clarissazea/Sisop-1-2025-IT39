@@ -558,6 +558,8 @@ done
 
 A. Melihat Summary dari Data
 ```bash
+#!/bin/bash
+
 show_summary() {
     highest_usage=$(awk -F',' 'NR>1 {if($2>max_usage){max_usage=$2; name=$1}} END {print name " with " max_usage "%"}' "$FILE")
     highest_raw=$(awk -F',' 'NR>1 {if($3>max_raw){max_raw=$3; name=$1}} END {print name " with " max_raw " uses"}' "$FILE")
@@ -692,8 +694,6 @@ fi
 
 G. Main Script
 ```base
-#!/bin/bash
-
 # Bersihkan terminal dan tampilkan ASCII Art
 clear
 echo -e "\e[33m$(figlet -f big 'PoKeMoN')\e[0m"
