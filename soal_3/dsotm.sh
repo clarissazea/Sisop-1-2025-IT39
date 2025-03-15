@@ -9,15 +9,25 @@ SpeakToMe() {
 }
 
 OnTheRun() {
-        clear
-        echo "ᗷᕮᑎTᗩᖇ Yᕼ"
-        echo -n "["
-        for i in $(seq 1 170); do
-                sleep $(awk -v min=0.1 -v max=1 'BEGIN{srand(); print min+rand()*(max-min)}')
-                echo -n "#"
+        j=170
+        i=0
+        until [ $i -eq $j ]
+        do
+                clear
+                echo "ᗷᕮᑎTᗩᖇ Yᕼ"
+                echo -n "["
+                for ((x=0; x<i; x++))
+                do
+                        echo -n "#"
+                done
+                echo -n "] $(( (i * 100) / j ))%"
+                sleep $(awk -v min=0.1 -v max=1 'BEGIN{srand(); print min+rand() * (max-min)}')
+                i=$((i + 1))
         done
-        echo "] SᕮᒪᕮSᗩI !!"
+        echo " "
+        echo "SᕮᒪᕮSᗩI !!"
 }
+
 
 Time() {
         while true; do
