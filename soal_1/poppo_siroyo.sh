@@ -54,6 +54,6 @@ fi
 
 # Footer
 echo
-echo "  Terima Kasih telah menggunakan program ini!  "
+echo "  TERIMA KASIH TELAH MENGGUNAKAN PROGRAM INI :D  "
 echo "-----------------------------------------------"
 echo
