@@ -41,15 +41,40 @@ i. Menambahkan Perintah ke Script. Membuka file poppo_siroyo.sh untuk menambahka
 ```bash
 nano poppo_siroyo.sh
 ```
-j. Menjalankan Script
-```bash
-./poppo_siroyo.sh
-```
-k. Menghitung Rata-Rata Durasi Membaca dengan Tablet
+j. Menghitung Rata-Rata Durasi Membaca dengan Tablet
 ```bash
 awk -F',' '$8 == "Tablet" {sum += $6; count++} END {if (count > 0) print "Rata-rata durasi membaca dengan Tablet adalah " sum / count " menit."}' reading_data.csv
 ```
-l.
+k. Menjalankan Script
+```bash
+./poppo_siroyo.sh
+```
+l. Menambahkan Perintah ke Script
+```bash
+nano poppo_siroyo.sh
+```
+m. Mencari Pembaca dengan Rating Tertinggi
+```bash
+awk -F',' 'NR > 1 {if ($7 > max) {title = $3; max = $7; name = $2}} END {print "Pembaca dengan rating tertinggi: " name " - " title " - " max}' reading_data.csv
+```
+n. Menjalankan Script
+```bash
+./poppo_siroyo.sh
+```
+o. Menambahkan Perintah ke Script
+```bash
+nano poppo_siroyo.sh
+```
+p. Mencari Genre Paling Populer di Asia Setelah 2023
+```bash
+awk -F, '$9 == "Asia" && $5 > "2023-12-31" {genres[$4]++} END {max = 0; for (genre in genres) {if (genres[genre] > max) {max = genres[genre]; most_common = genre;}} print "Genre paling populer di Asia setelah 2023 adalah " most_common " dengan " max " buku."}' reading_data.csv
+```
+q. Menjalankan Script
+```bash
+./poppo_siroyo.sh
+```
+r. Menggunakan kondisi if else untuk setiap soalnya.
+
 
 
 
