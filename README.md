@@ -13,6 +13,45 @@ b. Membuat File Script. File script ini akan berisi perintah-perintah untuk memp
 ```bash
 nano poppo_siroyo.sh
 ```
+c. Menjalankan Script
+```bash
+./poppo_siroyo.sh
+```
+d. Memberikan Izin Eksekusi pada Script. Agar script dapat dijalankan dengan perintah ./poppo_siroyo.sh.
+```bash
+chmod +x poppo_siroyo.sh
+```
+e. Menjalankan Script Kembali
+```bash
+./poppo_siroyo.sh
+```
+f. Melihat Isi File CSV (menampilkan isi file)
+```bash
+more reading_data.csv
+```
+g. Mencari Data dengan strings dan grep. Menampilkan semua string yang dapat dibaca dari file reading_data.csv, dan menyaring output untuk mencari baris yang mengandung nama "Chris Hemsworth".
+```bash
+strings reading_data.csv | grep "Chris Hemsworth"
+```
+h. Menghitung Jumlah Buku yang Dibaca oleh Chris Hemsworth
+```bash
+awk -F',' '$2 ~ "Chris Hemsworth" {count++} END {print "Chris Hemsworth membaca "count" buku."}' reading_data.csv
+```
+i. Menambahkan Perintah ke Script. Membuka file poppo_siroyo.sh untuk menambahkan perintah yang sudah diuji.
+```bash
+nano poppo_siroyo.sh
+```
+j. Menjalankan Script
+```bash
+./poppo_siroyo.sh
+```
+k. Menghitung Rata-Rata Durasi Membaca dengan Tablet
+```bash
+awk -F',' '$8 == "Tablet" {sum += $6; count++} END {if (count > 0) print "Rata-rata durasi membaca dengan Tablet adalah " sum / count " menit."}' reading_data.csv
+```
+l.
+
+
 
 
 # Soal_2
