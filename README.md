@@ -484,7 +484,7 @@ TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
 echo "[$TIMESTAMP] - Core Usage [$CPU_USAGE%] - Terminal Model [$CPU_MODEL]" >> "$LOG_FILE"
 ```
 i. “Irruption of New Color”  
-shell script terminal.sh, yang berisi user flow register, login, crontab manager, exit, exit  
+Membuat shell script terminal.sh, yang berisi user flow register, login, crontab manager, exit, exit  
 ```bash
 #!/bin/bash
 
