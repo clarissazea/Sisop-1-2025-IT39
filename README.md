@@ -551,7 +551,82 @@ while true; do
 done
 ```
 
+# Soal_3
+Membuat file dsotm.sh
+```bash
+nano dsotm.sh
+```
+a. Speak to Me  
+Fitur: Memanggil API untuk menampilkan word of affirmation setiap detik.
+```bash
+SpeakToMe() {
+        clear
+        while true; do
+                curl -s "Accept: application/json" "https://www.affirmations.dev" | jq -r '.affirmation'
+                sleep 2
+        done
+}
+```
 
+b. On the Run  
+Fitur: Menampilkan progress bar dengan interval random antara 0.1 hingga 1 detik.
+```bash
+OnTheRun() {
+        clear
+        echo "ᗷᕮᑎTᗩᖇ Yᕼ"
+        echo -n "["
+        for i in $(seq 1 170); do
+                sleep $(awk -v min=0.1 -v max=1 'BEGIN{srand(); print min+rand()*(max-min)}')
+                echo -n "#"
+        done
+        echo "] SᕮᒪᕮSᗩI !!"
+}
+```
+
+c. Time  
+Fitur: Menampilkan live clock dengan update setiap detik.
+```bash
+Time() {
+        while true; do
+                clear
+                echo "ᒍᗩᗰ ᗷᕮᖇᗩᑭᗩ"
+                echo "====================================================="
+                echo " "
+                date +"%Y-%m-%d %H:%M:%S"
+                sleep 1
+        done
+}
+```
+
+d. Money  
+Fitur: Menampilkan efek matrix dengan simbol mata uang.
+```bash
+Money() {
+        clear
+        chars="$€£¥¢₹₩₿₣"
+        cols=$(tput cols)
+        rows=$(tput lines)
+        while true; do
+                col=$((RANDOM % cols))
+                char=${chars:RANDOM%${#chars}:1}
+                tput cup $((RANDOM % rows)) $col
+                echo -e "\e[1;32m$char\e[0m"
+                sleep 0.07
+        done
+}
+```
+
+e. Brain Damage  
+Fitur: Menampilkan daftar proses yang sedang berjalan, diperbarui setiap detik.
+```bash
+BrainDmg() {
+        while true; do
+                clear
+                ps -eo pid,comm --sort=-%mem | head -n 10
+                sleep 1
+        done
+}
+```
 
 
 # Soal_4
