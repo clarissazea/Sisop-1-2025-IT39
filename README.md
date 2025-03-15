@@ -237,7 +237,7 @@ Mencegah duplikasi player dengan tidak bisa memakai email yang sama.
 $ nano register.sh
 ```
 ```bash
-# **Cek apakah email sudah terdaftar**
+# Mengecek apakah email sudah terdaftar
     if grep -q "^$EMAIL," "$DB_PATH"; then
         echo "Email already registered! Please use a different email."
         exit 1
@@ -290,7 +290,8 @@ else
 fi
 ```
 e. “The Brutality of Glass” 
-Melacak penggunaan CPU (dalam persentase) yaitu CPU Model dari device 
+Melacak penggunaan CPU (dalam persentase) yaitu CPU Model dari device  
+Membuat folder scripts & file core_monitor.sh
 ```bash
 $ mkdir scripts && cd scripts
 $ nano core_monitor.sh
@@ -335,7 +336,8 @@ fi
 chmod +x scripts/core_monitor.sh
 ```
 f. “In Grief and Great Delight”
-RAM dipantau dalam persentase usage, dan juga penggunaan RAM sekarang. CPU dan RAM memiliki output yang sama dengan suatu package resource checker, ex: top, htop, btop, bpytop.
+RAM dipantau dalam persentase usage, dan juga penggunaan RAM sekarang. CPU dan RAM memiliki output yang sama dengan suatu package resource checker, ex: top, htop, btop, bpytop.  
+Membuat file frag_monitor.sh pada folder scripts
 ```bash
 nano frag_monitor.sh
 ```
@@ -360,6 +362,7 @@ chmod +x ./scripts/frag_monitor.sh
 ```
 g. “On Fate's Approach”
 Crontab manager (suatu menu) untuk mengatur jadwal pemantauan sistem.
+Membuat file manager.sh dalam folder scripts
 ```bash
 nano manager.sh
 ```
@@ -373,7 +376,7 @@ RAM_MONITOR_PATH="$(pwd)/scripts/frag_monitor.sh"
 while true; do
     clear
     echo "=================================================="
-    echo "=                ARCAEA TERMINAL              ="
+    echo "=                Crontab Manager                 ="
     echo "=================================================="
     echo "ID  | OPTION                     |"
     echo "--------------------------------------------------"
@@ -424,3 +427,98 @@ while true; do
 done
 ```
 h. “The Disfigured Flow of Time”  
+Membuat 2 log file, core.log dan fragment.log di folder ./log/, yang dimana masing-masing terhubung ke program usage monitoring untuk usage tersebut.  
+```bash
+$ mkdir -p logs && touch logs/core.log logs/fragment.log
+nano core_monitor.sh
+```
+monitor.sh (pengeditan kode agar terhubung dengan core.log dan fragment.log)
+```bash
+#!/bin/bash
+
+LOG_FILE="logs/core.log"
+
+# Memastikan folder logs ada
+mkdir -p logs
+
+# Mengambil model CPU dari sistem
+CPU_MODEL=$(grep "model name" /proc/cpuinfo | head -n 1 | cut -d ':' -f2 | sed 's/^ *//')
+
+# Menghitung penggunaan CPU
+get_cpu_usage() {
+    read -ra CPU < <(head -n1 /proc/stat)  # Ambil data pertama dari /proc/stat dengan parsing yang benar
+    
+    IDLE_TIME=${CPU[4]}  # Waktu idle
+    TOTAL_TIME=0
+    
+    for VALUE in "${CPU[@]:1}"; do
+        ((TOTAL_TIME += VALUE))  # Akumulasi semua waktu CPU
+    done
+
+    echo "$TOTAL_TIME $IDLE_TIME"
+}
+
+# Ambil nilai awal CPU
+FIRST_MEASURE=($(get_cpu_usage))
+sleep 1  # Tunggu 1 detik
+SECOND_MEASURE=($(get_cpu_usage))
+
+# Hitung perubahan waktu CPU
+TOTAL_DIFF=$((SECOND_MEASURE[0] - FIRST_MEASURE[0]))
+IDLE_DIFF=$((SECOND_MEASURE[1] - FIRST_MEASURE[1]))
+
+# Jika TOTAL_DIFF nol, hindari pembagian dengan nol
+if [[ $TOTAL_DIFF -eq 0 ]]; then
+    CPU_USAGE=0.00
+else
+    CPU_USAGE=$(echo "scale=2; (100 * ($TOTAL_DIFF - $IDLE_DIFF)) / $TOTAL_DIFF" | bc)
+fi
+
+# Agar terlihat desimalnya
+if [[ $(echo "$CPU_USAGE < 1" | bc -l) -eq 1 ]]; then
+    CPU_USAGE="0$CPU_USAGE"
+fi
+
+# Simpan ke log file dengan format yang sesuai
+TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
+echo "[$TIMESTAMP] - Core Usage [$CPU_USAGE%] - Terminal Model [$CPU_MODEL]" >> "$LOG_FILE"
+```
+i. “Irruption of New Color”  
+shell script terminal.sh, yang berisi user flow register, login, crontab manager, exit, exit  
+```bash
+#!/bin/bash
+
+while true; do
+    clear
+    echo -e "\e[38;5;255m$(figlet -f standard 'ARCAEA TERMINAL')\e[0m"
+    echo "================================="
+    echo "=      ARCAEA TERMINAL          ="
+    echo "================================="
+    echo "1. Register"
+    echo "2. Login"
+    echo "3. Crontab Manager"
+    echo "4. Exit"
+    echo "================================="
+    read -p "Select an option [1-4]: " OPTION
+
+    case $OPTION in
+        1)  
+            ./register.sh
+            ;;
+        2)  
+            ./login.sh
+            ;;
+        3)  
+            ./scripts/manager.sh
+            ;;
+        4)  
+            echo "Exiting system..."
+            exit 0
+            ;;
+        *)
+            echo "Invalid option! Please select between 1-4."
+            ;;
+    esac
+    read -p "Press Enter to continue..."
+done
+```
