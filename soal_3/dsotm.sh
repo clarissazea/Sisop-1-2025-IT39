@@ -10,12 +10,13 @@ SpeakToMe() {
 
 OnTheRun() {
         clear
-        echo -n "Progress: ["
-        for i in $(seq 1 50); do
+        echo "ᗷᕮᑎTᗩᖇ Yᕼ"
+        echo -n "["
+        for i in $(seq 1 170); do
                 sleep $(awk -v min=0.1 -v max=1 'BEGIN{srand(); print min+rand()*(max-min)}')
                 echo -n "#"
         done
-        echo "] Done!"
+        echo "] SᕮᒪᕮSᗩI !!"
 }
 
 Time() {
@@ -44,11 +45,12 @@ Money() {
 }
 
 BrainDmg() {
-        clear
         while true; do
+                clear
                 ps -eo pid,comm --sort=-%mem | head -n 10
                 sleep 1
         done
+
 }
 
 case "$1" in
