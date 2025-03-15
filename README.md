@@ -222,7 +222,7 @@ b. “Radiant Genesis”
 ```bash
 $ nano register.sh
 ```
-Ubah sedikit dengan menambahkan kondisi sesuai aturan (minimal 8 karakter, 1 huruf kecil, 1 huruf besar, dan 1 angka).
+Ubah sedikit dengan menambahkan kondisi sesuai aturan (minimal 8 karakter, 1 huruf kecil, 1 huruf besar, dan 1 angka). 
 ```bash
 # Validasi password (minimal 8 karakter, 1 huruf besar, 1 huruf kecil, 1 angka)
     if ! [[ "$PASSWORD" =~ [A-Z] && "$PASSWORD" =~ [a-z] && "$PASSWORD" =~ [0-9] && ${#PASSWORD} -ge 8 ]]; then
@@ -232,4 +232,61 @@ Ubah sedikit dengan menambahkan kondisi sesuai aturan (minimal 8 karakter, 1 hur
     fi
 ```
 c. “Unceasing Spirit”  
+Mencegah duplikasi player dengan tidak bisa memakai email yang sama.
+```bash
+$ nano register.sh
+```
+```bash
+# **Cek apakah email sudah terdaftar**
+    if grep -q "^$EMAIL," "$DB_PATH"; then
+        echo "Email already registered! Please use a different email."
+        exit 1
+    fi
+```
+d. “The Eternal Realm of Light”  
+Algoritma hashing sha256sum untuk keamanan password
+```bash
+$ nano register.sh
+```
+```bash
+#!/bin/bash
 
+DB_PATH="/data/player.csv"
+SALT="arcaea_salt"  # Static salt untuk hashing
+.
+.
+.
+# Hash password with salt
+HASHED_PASSWORD=$(echo -n "${PASSWORD}${SALT}" | sha256sum | awk '{print $1}')
+
+# Simpan ke database
+echo "$EMAIL,$USERNAME,$HASHED_PASSWORD" >> "$DB_PATH"
+echo "Registration successful!"
+```
+```bash
+$ nano login.sh
+```
+```bash
+#!/bin/bash
+
+DB_PATH="/data/player.csv"
+SALT="arcaea_salt"  # Static salt harus sama dengan register.sh
+.
+.
+.
+# Ambil hash password dari database
+STORED_HASH=$(grep "^$EMAIL," "$DB_PATH" | cut -d ',' -f3)
+
+# Hash input password dengan salt
+HASHED_INPUT=$(echo -n "${PASSWORD}${SALT}" | sha256sum | awk '{print $1}')
+
+# Cocokkan hash
+if [ "$HASHED_INPUT" == "$STORED_HASH" ]; then
+    USERNAME=$(grep "^$EMAIL," "$DB_PATH" | cut -d ',' -f2)
+    echo "Login successful! Welcome, $USERNAME."
+else
+    echo "Incorrect password! Try again."
+    exit 1
+fi
+```
+e. “The Brutality of Glass”  
