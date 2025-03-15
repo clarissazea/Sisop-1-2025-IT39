@@ -2,7 +2,8 @@
 
 SpeakToMe() {
         clear
-        while true; do
+        while true
+        do
                 curl -s "Accept: application/json" "https://www.affirmations.dev" | jq -r '.affirmation'
                 sleep 2
         done
@@ -30,7 +31,8 @@ OnTheRun() {
 
 
 Time() {
-        while true; do
+        while true
+        do
                 clear
                 echo "ᒍᗩᗰ ᗷᕮᖇᗩᑭᗩ"
                 echo "====================================================="
@@ -45,7 +47,8 @@ Money() {
         chars="$€£¥¢₹₩₿₣"
         cols=$(tput cols)
         rows=$(tput lines)
-        while true; do
+        while true
+        do
                 col=$((RANDOM % cols))
                 char=${chars:RANDOM%${#chars}:1}
                 tput cup $((RANDOM % rows)) $col
@@ -55,7 +58,8 @@ Money() {
 }
 
 BrainDmg() {
-        while true; do
+        while true
+        do
                 clear
                 ps -eo pid,comm --sort=-%mem | head -n 10
                 sleep 1
