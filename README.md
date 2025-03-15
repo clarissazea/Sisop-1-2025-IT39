@@ -563,7 +563,7 @@ SpeakToMe() {
         clear
         while true; do
                 curl -s "Accept: application/json" "https://www.affirmations.dev" | jq -r '.affirmation'
-                sleep 2
+                sleep 1
         done
 }
 ```
