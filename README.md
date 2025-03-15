@@ -143,8 +143,6 @@ echo
 
 # Soal_2
 a. “First Step in a New World”
-Tugas pertama, dikarenakan kejadian “Axiom of The End” yang semakin mendekat, diperlukan sistem untuk mencatat “Player” aktif agar terpisah dari “Observer”. Buatlah dua shell script, login.sh dan register.sh, yang dimana database “Player” disimpan di /data/player.csv. Untuk register, parameter yang dipakai yaitu email, username, dan password. Untuk login, parameter yang dipakai yaitu email dan password.
-
 Pada soal, instruksi pertama adalah membuat direktori folder soal_2 yang di dalamnya terdapat 2 file (login.sh & register.sh) dan database /data/player.csv.
 
 ```bash
@@ -168,4 +166,17 @@ $ chmod +x register.sh login.sh
 $ sudo mkdir -p data
 $ sudo touch data/player.csv
 $ sudo chmod 777 data/player.csv
+```
+b. “Radiant Genesis”
+```bash
+$ nano register.sh
+```
+Ubah sedikit dengan menambahkan kondisi sesuai aturan (minimal 8 karakter, 1 huruf kecil, 1 huruf besar, dan 1 angka).
+```bash
+# Validasi password (minimal 8 karakter, 1 huruf besar, 1 huruf kecil, 1 angka)
+    if ! [[ "$PASSWORD" =~ [A-Z] && "$PASSWORD" =~ [a-z] && "$PASSWORD" =~ [0-9] && ${#PASSWORD} -ge 8 ]]; then
+        echo "Password does not meet security requirements!"
+        echo "Must contain at least 8 characters, 1 uppercase, 1 lowercase, and 1 number."
+        exit 1
+    fi
 ```
