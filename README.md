@@ -187,22 +187,22 @@ read -p "Enter your email: " EMAIL
 read -s -p "Enter password: " PASSWORD
 echo ""
 
-# Periksa apakah file database ada
+# Memeriksa apakah file database ada
 if [ ! -f "$DB_PATH" ]; then
     echo "No players registered yet. Please register first!"
     exit 1
 fi
 
-# **Periksa apakah email ada di database**
+# Memeriksa apakah email ada di database
 if ! grep -q "^$EMAIL," "$DB_PATH"; then
     echo "Email not found! Please register first."
     exit 1
 fi
 
-# **Ambil password yang tersimpan dari CSV**
+# Mengambil password yang tersimpan dari CSV
 STORED_PASSWORD=$(grep "^$EMAIL," "$DB_PATH" | cut -d ',' -f3)
 
-# Cocokkan password
+# Mencocokkan password
 if [ "$PASSWORD" == "$STORED_PASSWORD" ]; then
     USERNAME=$(grep "^$EMAIL," "$DB_PATH" | cut -d ',' -f2)
     echo "Login successful! Welcome, $USERNAME."
@@ -280,7 +280,7 @@ STORED_HASH=$(grep "^$EMAIL," "$DB_PATH" | cut -d ',' -f3)
 # Hash input password dengan salt
 HASHED_INPUT=$(echo -n "${PASSWORD}${SALT}" | sha256sum | awk '{print $1}')
 
-# Cocokkan hash
+# Mencocokkan hash
 if [ "$HASHED_INPUT" == "$STORED_HASH" ]; then
     USERNAME=$(grep "^$EMAIL," "$DB_PATH" | cut -d ',' -f2)
     echo "Login successful! Welcome, $USERNAME."
@@ -289,4 +289,138 @@ else
     exit 1
 fi
 ```
-e. “The Brutality of Glass”  
+e. “The Brutality of Glass” 
+Melacak penggunaan CPU (dalam persentase) yaitu CPU Model dari device 
+```bash
+$ mkdir scripts && cd scripts
+$ nano core_monitor.sh
+```
+```bash
+#!/bin/bash
+
+# Mengambil model CPU dari sistem
+CPU_MODEL=$(grep "model name" /proc/cpuinfo | head -n 1 | cut -d ':' -f2 | sed 's/^ *//')
+
+# Menghitung penggunaan CPU
+get_cpu_usage() {
+    # Ambil data pertama dari /proc/stat
+    CPU=($(head -n1 /proc/stat))
+    
+    # Menghitung total waktu CPU
+    IDLE_TIME=${CPU[4]}
+    TOTAL_TIME=0
+    for VALUE in "${CPU[@]:1}"; do
+        TOTAL_TIME=$((TOTAL_TIME + VALUE))
+    done
+    
+    echo "$TOTAL_TIME $IDLE_TIME"
+}
+
+# Mengambil nilai awal CPU
+FIRST_MEASURE=($(get_cpu_usage))
+sleep 1  # Tunggu 1 detik
+SECOND_MEASURE=($(get_cpu_usage))
+
+# Menghitung perubahan waktu CPU
+TOTAL_DIFF=$((SECOND_MEASURE[0] - FIRST_MEASURE[0]))
+IDLE_DIFF=$((SECOND_MEASURE[1] - FIRST_MEASURE[1]))
+
+# Menghitung CPU usage dengan angka desimal (2 angka di belakang koma)
+CPU_USAGE=$(echo "scale=2; (100 * ($TOTAL_DIFF - $IDLE_DIFF)) / $TOTAL_DIFF" | bc)
+if (( $(echo "$CPU_USAGE < 1" | bc -l) )); then
+    CPU_USAGE="0$CPU_USAGE"
+fi
+```
+```bash
+chmod +x scripts/core_monitor.sh
+```
+f. “In Grief and Great Delight”
+RAM dipantau dalam persentase usage, dan juga penggunaan RAM sekarang. CPU dan RAM memiliki output yang sama dengan suatu package resource checker, ex: top, htop, btop, bpytop.
+```bash
+nano frag_monitor.sh
+```
+```bash
+#!/bin/bash
+
+# Mengambil total dan free memory dari /proc/meminfo
+TOTAL_MEM=$(grep "MemTotal" /proc/meminfo | awk '{print $2}')
+FREE_MEM=$(grep "MemAvailable" /proc/meminfo | awk '{print $2}')
+
+# Menghitung penggunaan RAM dalam persen
+USED_MEM=$((TOTAL_MEM - FREE_MEM))
+RAM_USAGE_PERCENT=$(echo "scale=2; ($USED_MEM / $TOTAL_MEM) * 100" | bc)
+
+# Mengubah satuan dari KB ke MB
+TOTAL_MEM_MB=$((TOTAL_MEM / 1024))
+USED_MEM_MB=$((USED_MEM / 1024))
+AVAILABLE_MEM_MB=$((FREE_MEM / 1024))
+```
+```bash
+chmod +x ./scripts/frag_monitor.sh
+```
+g. “On Fate's Approach”
+Crontab manager (suatu menu) untuk mengatur jadwal pemantauan sistem.
+```bash
+nano manager.sh
+```
+```bash
+#!/bin/bash
+
+CPU_MONITOR_PATH="$(pwd)/scripts/core_monitor.sh"
+RAM_MONITOR_PATH="$(pwd)/scripts/frag_monitor.sh"
+
+# Menampilkan Menu
+while true; do
+    clear
+    echo "=================================================="
+    echo "=                ARCAEA TERMINAL              ="
+    echo "=================================================="
+    echo "ID  | OPTION                     |"
+    echo "--------------------------------------------------"
+    echo "1   | Add CPU - Core Monitor to Crontab             |"
+    echo "2   | Add RAM - Fragment Monitor to Crontab     |"
+    echo "3   | Remove CPU - Core Monitor from Crontab     |"
+    echo "4   | Remove RAM - Fragment Monitor from Crontab |"
+    echo "5   | View All Scheduled Monitoring Jobs     |"
+    echo "6   | Exit Arcaea Terminal             |"
+    echo "=================================================="
+    read -p "Enter option [1-6]: " OPTION
+ 
+   case $OPTION in
+        1) 
+            (crontab -l 2>/dev/null; echo "*/1 * * * * $(pwd)/scripts/frag_monitor.sh") | crontab -    
+        chmod +x scripts/core_monitor.sh
+            echo "CPU Monitor activated & added to Crontab (runs every 1 minutes)."
+            ;;
+        2)
+            (crontab -l 2>/dev/null; echo "*/1 * * * * $(pwd)/scripts/frag_monitor.sh") | crontab -
+        chmod +x scripts/frag_monitor.sh
+            echo "RAM Monitor activated & added to Crontab (runs every 1 minutes)."
+            ;;
+        3)
+            crontab -l | grep -v "$(pwd)/scripts/core_monitor.sh" | crontab -
+        pkill -f scripts/core_monitor.sh
+            echo "CPU Monitor deactivated & removed from Crontab."
+            ;;
+        4)
+            crontab -l | grep -v "$(pwd)/scripts/frag_monitor.sh" | crontab -
+        pkill -f scripts/frag_monitor.sh
+            echo "RAM Monitor deactivated & removed from Crontab."
+            ;;
+        5)
+            echo "Active Crontab Jobs:"
+            crontab -l
+            ;;
+        6)
+            echo "Exiting..."
+            exit 0
+            ;;
+        *)
+            echo "Invalid option. Please select 1-6."
+            ;;
+    esac
+
+    read -p "Press Enter to continue..."
+done
+```
+h. “The Disfigured Flow of Time”  
