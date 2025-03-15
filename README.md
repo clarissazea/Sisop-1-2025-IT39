@@ -142,7 +142,7 @@ echo
 
 
 # Soal_2
-a. “First Step in a New World”
+a. “First Step in a New World”  
 Pada soal, instruksi pertama adalah membuat direktori folder soal_2 yang di dalamnya terdapat 2 file (login.sh & register.sh) dan database /data/player.csv.
 
 ```bash
@@ -152,6 +152,29 @@ $ nano register.sh
 Membuat file register.sh
 nano register.sh
 [Register Scripts](https://github.com/clarissazea/Sisop-1-2025-IT39/blob/3745a7a4feb319daf11c82a19ee95240568a604c/soal_2/register.sh)
+```bash
+#!/bin/bash
+
+DB_PATH="/data/player.csv"
+
+# 3 parameter: email, username, password
+if [ "$#" -ne 3 ]; then
+    echo "Usage: ./register.sh <email> <username> <password>"
+    exit 1
+fi
+
+EMAIL=$1
+USERNAME=$2
+PASSWORD=$3
+
+# Cek apakah database sudah ada, jika tidak buat file dan tambahkan header
+if [ ! -f "$DB_PATH" ]; then
+    echo "email,username,password" > "$DB_PATH"
+fi
+# Tambahkan data baru ke database
+echo "$EMAIL,$USERNAME,$PASSWORD" >> "$DB_PATH"
+echo "Registrasi berhasil!"
+```
 
 Membuat file login.sh
 ```bash
@@ -159,7 +182,35 @@ $ nano login.sh
 ```
 nano login.sh
 [Login Scripts](https://github.com/clarissazea/Sisop-1-2025-IT39/blob/3745a7a4feb319daf11c82a19ee95240568a604c/soal_2/login.sh)
+```bash
+read -p "Enter your email: " EMAIL
+read -s -p "Enter password: " PASSWORD
+echo ""
 
+# Periksa apakah file database ada
+if [ ! -f "$DB_PATH" ]; then
+    echo "No players registered yet. Please register first!"
+    exit 1
+fi
+
+# **Periksa apakah email ada di database**
+if ! grep -q "^$EMAIL," "$DB_PATH"; then
+    echo "Email not found! Please register first."
+    exit 1
+fi
+
+# **Ambil password yang tersimpan dari CSV**
+STORED_PASSWORD=$(grep "^$EMAIL," "$DB_PATH" | cut -d ',' -f3)
+
+# Cocokkan password
+if [ "$PASSWORD" == "$STORED_PASSWORD" ]; then
+    USERNAME=$(grep "^$EMAIL," "$DB_PATH" | cut -d ',' -f2)
+    echo "Login successful! Welcome, $USERNAME."
+else
+    echo "Incorrect password! Try again."
+    exit 1
+fi
+```
 Membuat direktori database
 ```bash
 $ chmod +x register.sh login.sh
@@ -167,7 +218,7 @@ $ sudo mkdir -p data
 $ sudo touch data/player.csv
 $ sudo chmod 777 data/player.csv
 ```
-b. “Radiant Genesis”
+b. “Radiant Genesis”  
 ```bash
 $ nano register.sh
 ```
@@ -180,3 +231,4 @@ Ubah sedikit dengan menambahkan kondisi sesuai aturan (minimal 8 karakter, 1 hur
         exit 1
     fi
 ```
+c. “Unceasing Spirit”  
