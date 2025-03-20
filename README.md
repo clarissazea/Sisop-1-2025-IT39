@@ -9,9 +9,12 @@ a. Membuat Direktori dan Masuk ke Direktori
 ```bash
 mkdir soal_1 && cd soal_1
 ```
-b. Membuat File Script. File script ini akan berisi perintah-perintah untuk memproses data dari reading_data.csv.
+b. Membuat File Script. File script ini akan berisi perintah-perintah untuk memproses data dari reading_data.csv. Kemudian unduh file dari google drive
 ```bash
 nano poppo_siroyo.sh
+```
+#!/bin/bash
+wget "https://drive.google.com/uc?export=download&id= ...." -O reading_data.csv
 ```
 c. Menjalankan Script
 ```bash
