@@ -13,6 +13,7 @@ b. Membuat File Script. File script ini akan berisi perintah-perintah untuk memp
 ```bash
 nano poppo_siroyo.sh
 ```
+```bash
 #!/bin/bash
 wget "https://drive.google.com/uc?export=download&id= ...." -O reading_data.csv
 ```
