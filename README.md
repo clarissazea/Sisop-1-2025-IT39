@@ -654,7 +654,7 @@ chmod +x dsotm.sh
 ```bash
 ./dsotm.sh --play="<Track>"
 ```
-Ket. : <Track> diganti lagu yang dipilih
+Ket. : ```<Track>``` diganti lagu yang dipilih
 
 # Soal_4
 
