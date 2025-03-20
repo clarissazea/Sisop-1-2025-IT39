@@ -556,7 +556,9 @@ done
 ```
 
 # Soal_3
-## Membuat File dsotm.sh
+Dikerjakan oleh Muhammad Rafi' Adly (5027241082) Menggunakan 1 file script bash
+
+Membuat File dsotm.sh
 ```bash
 nano dsotm.sh
 ```
@@ -642,7 +644,9 @@ BrainDmg() {
         done
 }
 ```
-## Memberi Izin Eksekusi
+Menggunakan while loop supaya bisa ter-update setiap 1 detik. Untuk menampilkan task manager, menggunakan ```ps aux``` dan diurutkan berdasarkan cpu. Kemudian pipe ke fungsi ```awk '{print $1, $2, $3, $4, $7, $10, $11}'``` supaya hanya menampilkan USER, PID, %CPU, %MEM, TTY, TIME, dan COMMAND. Lalu pipe ke fungsi ```head -n 25``` supaya task manager hanya menampilkan pekerjaan yang diatas, setelah diurutkan berdasarkan cpu.
+## Eksekusi
+
 ```bash
 chmod +x dsotm.sh
 ```
