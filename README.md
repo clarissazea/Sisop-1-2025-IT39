@@ -157,6 +157,18 @@ echo
 ```
 
 ## Kendala yang dialami
+Tidak ada kendala yang signifikan dalam pengerjaan soal nomor 1. Semua perintah berjalan sesuai ekspektasi dan menghasilkan output yang benar.
+Namun, pada saat demo untuk soal command ke-4 (Menampilkan genre yang paling populer di Asia setelah tanggal 31 Desember 2023 beserta jumlahnya), ditemukan adanya output yang tidak sesuai. Setelah dilakukan pengecekan, ternyata masalahnya berasal dari file data reading_data.csv yang kemungkinan telah berubah/perlu diunduh ulang.
+
+## Solusi
+
+Solusi yang dilakukan untuk mengatasi kendala tersebut adalah:
+
+- Mengunduh ulang data file reading_data.csv dari Google Drive menggunakan terminal agar data yang digunakan adalah versi yang benar dan sesuai kebutuhan.
+- Setelah data berhasil diperbarui, perintah untuk mengunduh file (wget) di dalam script poppo_siroyo.sh dinonaktifkan dengan menambahkan tanda # di awal baris perintah tersebut. Hal ini dilakukan untuk memastikan agar script tetap aman saat dijalankan di lain waktu, tanpa risiko file data ter-replace kembali dengan file yang salah atau tidak diinginkan.
+
+  
+Dengan solusi tersebut, command ke-4 dapat berjalan dengan baik dan menghasilkan output yang sesuai saat demo berlangsung.
 
 
 
