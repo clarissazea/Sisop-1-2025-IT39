@@ -640,7 +640,7 @@ Time() {
         done
 }
 ```
-Menggunakan while loop untuk memperbarui live clock setiap 1 detik. Fungsi ```date``` untuk menampilkan waktu dengan format YYYY-MM-DD HH:MM:SS.
+Menggunakan while loop untuk memperbarui live clock setiap 1 detik. Fungsi ```date``` untuk menampilkan waktu dengan format ```YYYY-MM-DD HH:MM:SS```.
 
 ## d. Money  
 Fitur: Menampilkan efek matrix dengan simbol mata uang.
@@ -658,10 +658,9 @@ Money() {
                 echo "$uang2"
                 sleep 0.07
         done
-
 }
 ```
-
+Mendeklarasikan mata uang ```$€£¥¢₹₩₿₣```. Fungsi ```y=$(tput cols)``` untuk mendapatkan kolom terminal dan ```x=$(tput lines)``` untuk mendapatkan baris terminal. Lalu menggunakan while loop untuk menampilkan cmatrix terus-menerus. Fungsi ```y2=$((RANDOM % y))``` untuk mendapatkan kolom secara acak. Fungsi ```uang2=${uang:RANDOM%${#uang}:1}``` untuk mendapatkan mata uang sesuai yang sudah dideklarasikan di awal. Fungsi ```tput cup $((RANDOM % x)) $y2``` untuk menempatkan mata uang di baris dan kolom yang acak. Lalu di-print dan menggunakan ```sleep 0.07``` untuk memberi jeda while loop selama 0.07 detik.
 ## e. Brain Damage  
 Fitur: Menampilkan daftar proses yang sedang berjalan, diperbarui setiap detik.
 ```bash
