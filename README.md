@@ -574,6 +574,7 @@ SpeakToMe() {
 }
 ```
 
+
 ## b. On the Run  
 Fitur: Menampilkan progress bar dengan interval random antara 0.1 hingga 1 detik.
 ```bash
@@ -612,6 +613,7 @@ Time() {
         done
 }
 ```
+Menggunakan while loop untuk memperbarui live clock setiap 1 detik. Fungsi ```date``` untuk menampilkan waktu dengan format YYYY-MM-DD HH:MM:SS.
 
 ## d. Money  
 Fitur: Menampilkan efek matrix dengan simbol mata uang.
@@ -655,6 +657,8 @@ chmod +x dsotm.sh
 ./dsotm.sh --play="<Track>"
 ```
 Ket. : ```<Track>``` diganti lagu yang dipilih
+
+
 
 # Soal_4
 
