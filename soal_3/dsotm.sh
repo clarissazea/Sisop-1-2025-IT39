@@ -10,23 +10,29 @@ SpeakToMe() {
 }
 
 OnTheRun() {
-        j=170
-        i=0
-        until [ $i -eq $j ]
+    j=100
+    i=0
+    progres=$(tput cols)
+    until [ $i -eq $j ]
+    do
+        clear
+        echo "ᗷᕮᑎTᗩᖇ Yᕼ"
+        echo -n "["
+        space=$(( (progres - 2) * i / j ))
+        for ((x = 0; x < space; x++))
         do
-                clear
-                echo "ᗷᕮᑎTᗩᖇ Yᕼ"
-                echo -n "["
-                for ((x=0; x<i; x++))
-                do
-                        echo -n "#"
-                done
-                echo -n "] $(( (i * 100) / j ))%"
-                sleep $(awk -v min=0.1 -v max=1 'BEGIN{srand(); print min+rand() * (max-min)}')
-                i=$((i + 1))
+            echo -n "#"
         done
-        echo " "
-        echo "SᕮᒪᕮSᗩI !!"
+        for ((x = space; x < progres - 2; x++))
+        do
+            echo -n " "
+        done
+        echo -n "] $(( (i * 100) / j ))%"
+        sleep $(awk -v min=0.1 -v max=1 'BEGIN{srand(); print min+rand() * (max-min)}')
+        i=$((i + 1))
+    done
+    echo " "
+    echo "SᕮᒪᕮSᗩI !!"
 }
 
 Time() {
