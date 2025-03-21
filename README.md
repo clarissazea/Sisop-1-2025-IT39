@@ -192,7 +192,6 @@ Dengan solusi tersebut, command ke-4 dapat berjalan dengan baik dan menghasilkan
   ![image](https://github.com/user-attachments/assets/17f7808b-b272-4852-b2d3-fceb669738ec)
 
 
-
 # Soal_2  
 
 Dikerjakan oleh Ahmad Wildan Fawwaz (5027241001)  
@@ -204,12 +203,12 @@ Dikerjakan oleh Ahmad Wildan Fawwaz (5027241001)
   5. Direktori `scripts` digunakan untuk menyimpan file `core_monitor.sh`, `frag_monitor.sh`, dan `manager.sh`.
   6. File `terminal.sh` digunakan untuk menampilkan menu register, login, crontab manager, dan exit.
 
-# subsoal a. “First Step in a New World”  
+Subsoal a. “First Step in a New World”  
 Pada soal, instruksi pertama adalah membuat direktori folder soal_2 yang di dalamnya terdapat 2 file (login.sh & register.sh) dan database /data/player.csv.
 
 ```bash
-$ mkdir soal_2 && cd soal_2
-$ nano register.sh
+mkdir soal_2 && cd soal_2
+nano register.sh
 ```
 Membuat file register.sh
 ## nano register.sh  
@@ -239,7 +238,7 @@ echo "Registrasi berhasil!"
 
 Membuat file login.sh
 ```bash
-$ nano login.sh
+nano login.sh
 ```
 ## nano login.sh  
 ```bash
@@ -273,16 +272,17 @@ fi
 ```
 Membuat direktori database
 ```bash
-$ chmod +x register.sh login.sh
-$ sudo mkdir -p data
-$ sudo touch data/player.csv
-$ sudo chmod 777 data/player.csv
+chmod +x register.sh login.sh
+sudo mkdir -p data
+sudo touch data/player.csv
+sudo chmod 777 data/player.csv
 ```
-b. “Radiant Genesis”  
+Subsoal b. “Radiant Genesis”  
 ```bash
-$ nano register.sh
+nano register.sh
 ```
-Ubah sedikit dengan menambahkan kondisi sesuai aturan (minimal 8 karakter, 1 huruf kecil, 1 huruf besar, dan 1 angka). 
+Mengubah kode dengan menambahkan kondisi sesuai aturan (minimal 8 karakter, 1 huruf kecil, 1 huruf besar, dan 1 angka).
+## register.sh
 ```bash
 # Validasi password (minimal 8 karakter, 1 huruf besar, 1 huruf kecil, 1 angka)
     if ! [[ "$PASSWORD" =~ [A-Z] && "$PASSWORD" =~ [a-z] && "$PASSWORD" =~ [0-9] && ${#PASSWORD} -ge 8 ]]; then
@@ -291,11 +291,12 @@ Ubah sedikit dengan menambahkan kondisi sesuai aturan (minimal 8 karakter, 1 hur
         exit 1
     fi
 ```
-c. “Unceasing Spirit”  
+Subsoal c. “Unceasing Spirit”  
 Mencegah duplikasi player dengan tidak bisa memakai email yang sama.
 ```bash
-$ nano register.sh
+nano register.sh
 ```
+## register.sh
 ```bash
 # Mengecek apakah email sudah terdaftar
     if grep -q "^$EMAIL," "$DB_PATH"; then
@@ -303,11 +304,12 @@ $ nano register.sh
         exit 1
     fi
 ```
-d. “The Eternal Realm of Light”  
+Subsoal d. “The Eternal Realm of Light”  
 Algoritma hashing sha256sum untuk keamanan password
 ```bash
-$ nano register.sh
+nano register.sh
 ```
+## register.sh
 ```bash
 #!/bin/bash
 
@@ -326,6 +328,7 @@ echo "Registration successful!"
 ```bash
 $ nano login.sh
 ```
+## login.sh
 ```bash
 #!/bin/bash
 
@@ -349,13 +352,14 @@ else
     exit 1
 fi
 ```
-e. “The Brutality of Glass” 
+Subsoal e. “The Brutality of Glass” 
 Melacak penggunaan CPU (dalam persentase) yaitu CPU Model dari device  
 Membuat folder scripts & file core_monitor.sh
 ```bash
 $ mkdir scripts && cd scripts
 $ nano core_monitor.sh
 ```
+## core_monitor.sh
 ```bash
 #!/bin/bash
 
@@ -383,7 +387,7 @@ get_cpu_usage() {
     fi
 }
 
-# Jika mpstat tidak ada, gunakan metode manual
+# Jika mpstat tidak ada, gunakan metode manual (untuk mendapatkan nilai lebih detail dibelakang koma)
 if ! command -v mpstat &> /dev/null; then
     FIRST_MEASURE=($(get_cpu_usage))
     sleep 1
@@ -408,12 +412,13 @@ echo "[$TIMESTAMP] - Core Usage [$CPU_USAGE%] - Terminal Model [$CPU_MODEL]" >> 
 ```bash
 chmod +x scripts/core_monitor.sh
 ```
-f. “In Grief and Great Delight”
+Subsoal f. “In Grief and Great Delight”
 RAM dipantau dalam persentase usage, dan juga penggunaan RAM sekarang. CPU dan RAM memiliki output yang sama dengan suatu package resource checker, ex: top, htop, btop, bpytop.  
 Membuat file frag_monitor.sh pada folder scripts
 ```bash
 nano frag_monitor.sh
 ```
+## frag_monitor.sh
 ```bash
 #!/bin/bash
 
@@ -445,12 +450,13 @@ echo "[$TIMESTAMP] - Fragment Usage [$RAM_USAGE_PERCENT%] - Fragment Count [$USE
 ```bash
 chmod +x ./scripts/frag_monitor.sh
 ```
-g. “On Fate's Approach”
+Subsoal g. “On Fate's Approach”
 Crontab manager (suatu menu) untuk mengatur jadwal pemantauan sistem.
 Membuat file manager.sh dalam folder scripts
 ```bash
 nano manager.sh
 ```
+## manager.sh
 ```bash
 #!/bin/bash
 
@@ -514,13 +520,13 @@ while true; do
     read -p "Press Enter to continue..."
 done
 ```
-h. “The Disfigured Flow of Time”  
+Subsoal h. “The Disfigured Flow of Time”  
 Membuat 2 log file, core.log dan fragment.log di folder ./log/, yang dimana masing-masing terhubung ke program usage monitoring untuk usage tersebut.  
 ```bash
 $ mkdir -p logs && touch logs/core.log logs/fragment.log
 nano core_monitor.sh
 ```
-monitor.sh (pengeditan kode agar terhubung dengan core.log dan fragment.log)
+## monitor.sh (pengeditan kode agar terhubung dengan core.log dan fragment.log)
 ```bash
 #!/bin/bash
 
@@ -571,8 +577,9 @@ fi
 TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
 echo "[$TIMESTAMP] - Core Usage [$CPU_USAGE%] - Terminal Model [$CPU_MODEL]" >> "$LOG_FILE"
 ```
-i. “Irruption of New Color”  
-Membuat shell script terminal.sh, yang berisi user flow register, login, crontab manager, exit, exit  
+Subsoal i. “Irruption of New Color”  
+Membuat shell script terminal.sh, yang berisi user flow register, login, crontab manager, exit, exit
+## terminal.sh
 ```bash
 #!/bin/bash
 
@@ -610,6 +617,11 @@ while true; do
     read -p "Press Enter to continue..."
 done
 ```
+
+## Kendala yang Dialami  
+Tidak ada kendala yang dialami pada soal 2 ini. Input dan output sudah sesuai dengan prosedur. Pada saat test case demo berjalan lancar, tidak ada proses output yang error maupun tidak sesuai dengan output seharusnya. Tidak ada revisi dari asisten penguji, sehingga soal_2 sukses selesai.
+
+## Dokumentasi soal_2  
 
 # Soal_3
 Dikerjakan oleh Muhammad Rafi' Adly (5027241082) Menggunakan 1 file script bash
