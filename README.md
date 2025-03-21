@@ -4,11 +4,12 @@
   
 </div>
 
-# Soal_1
+# SOAL_1
 
 Dikerjakan oleh Clarissa Aydin Rahmazea (5027241014)
 
-Poppo_Siroyo.sh: Terdiri atas 4 command utama yaitu:
+
+Poppo_siroyo.sh: Terdiri atas 4 command utama yaitu:
 
 - Menampilkan jumlah buku yang dibaca oleh “Chris Hemsworth”.
 - Menghitung rata-rata durasi membaca (Reading_Duration_Minutes) untuk buku-buku yang dibaca menggunakan “Tablet”.
