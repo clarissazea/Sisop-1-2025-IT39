@@ -15,7 +15,9 @@ Poppo_siroyo.sh: Terdiri atas 4 command utama yaitu:
 - Menghitung rata-rata durasi membaca (Reading_Duration_Minutes) untuk buku-buku yang dibaca menggunakan “Tablet”.
 - Menampilkan pembaca dengan rating tertinggi beserta nama (Name), judul bukunya (Book_Title), dan rating (Rating).
 - Menampilkan genre yang paling populer di Asia setelah tanggal 31 Desember 2023 beserta jumlahnya.
-  
+
+
+  1. CARA PENGERJAAN
 a. Membuat Direktori dan Masuk ke Direktori
 ```bash
 mkdir soal_1 && cd soal_1
