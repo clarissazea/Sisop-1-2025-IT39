@@ -748,7 +748,36 @@ Ket. : ```<Track>``` diganti lagu yang dipilih
 ## Revisi Soal_3
 ### On the Run
 ```bash
+OnTheRun() {
+    j=100
+    i=0
+    progres=$(tput cols)
+    until [ $i -eq $j ]
+    do
+        clear
+        echo "ᗷᕮᑎTᗩᖇ Yᕼ"
+        echo -n "["
+        space=$(( (progres - 2) * i / j ))
+        for ((x = 0; x < space; x++))
+        do
+            echo -n "#"
+        done
+        for ((x = space; x < progres - 2; x++))
+        do
+            echo -n " "
+        done
+        echo -n "] $(( (i * 100) / j ))%"
+        sleep $(awk -v min=0.1 -v max=1 'BEGIN{srand(); print min+rand() * (max-min)}')
+        i=$((i + 1))
+    done
+    echo " "
+    echo "SᕮᒪᕮSᗩI !!"
+}
 ```
+Perubahan:
+```j=100``` variabel j dikurangi supaya looping tidak terlalu lama. Menambahkan ```progres=$(tput cols)``` untuk menghitung kolom yang ada di terminal. Menambahkan for loop dan ```space=$(( (progres - 2) * i / j ))``` untuk mengisi ruang kosong.
+### Output On the Run (Revisi)
+![Screenshot from 2025-03-21 23-46-50](https://github.com/user-attachments/assets/400a0028-7f46-48be-aecd-17aec3a373b6)
 
 # Soal_4
 
