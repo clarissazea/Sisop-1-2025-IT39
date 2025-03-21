@@ -808,9 +808,23 @@ Perubahan:
 ### Output On the Run (Revisi)
 ![Screenshot from 2025-03-21 23-46-50](https://github.com/user-attachments/assets/400a0028-7f46-48be-aecd-17aec3a373b6)
 
-# Soal_4
 
+
+# Soal_4  
+Dikerjakan oleh Ahmad Wildan Fawwaz (5027241001)  
+Pada soal_4 ini menggunakan 1 file `pokemon_analysis.sh` dengan sumber data nama pokemon dan innformasinya yang didownload dari gdrive dan disimpan dengan nama `data.csv`.  
+
+## Download file dari gdrive
+```bash
+wget "https://drive.google.com/uc?export=download&id=1n-2n_ZOTMleqa8qZ2nB8ALAbGFyN4-LJ" -O data.csv
+```
+
+## Membuat file pokemon_analysis.sh  
+```bash
+nano pokemon_analysis.sh
+```
 A. Melihat Summary dari Data
+## pokemon_analysis.sh
 ```bash
 #!/bin/bash
 
@@ -974,3 +988,135 @@ esac
 - Membersihkan terminal dan menampilkan ASCII Art menggunakan figlet.
 - Membaca parameter yang diberikan pengguna ($1, $2, $3).
 - Menggunakan case untuk menjalankan fungsi yang sesuai berdasarkan opsi yang dipilih.
+
+## Kendala yang dialami  
+Pada proses pengerjaan masih aman tanpa kendala. Namun saat demo terdapat beberapa test case yang gagal, seperti:  
+  1. ./pokemon_analysis.sh data.csv --info. Dimana, outputnya seharusnya Highest Adjusted Usage: Gliscor with 31.0927%
+Highest Raw Usage: Great Tusk with 563831 uses
+![Image](https://github.com/user-attachments/assets/77e8cb65-861f-4415-84bc-a6a4d52c4293)
+  2. --grep ogerpon harusnya ada 3 yang muncul, pada demo hanya ada 1 yang muncul
+![Image](https://github.com/user-attachments/assets/7093f90b-4282-4ac0-abef-785be3fde7d7)
+  3. --grep dark harusnya ada 1 yang muncul, yaitu darkrai
+![Image](https://github.com/user-attachments/assets/3bc26557-67e3-4be7-9eb0-e09f66c64aec)
+  4.  --help harusnya bisa jalan tanpa perlu data.csv
+![Image](https://github.com/user-attachments/assets/e88c1707-1c41-4118-8f7a-3826ef597460)
+
+## Solusi
+Karena revisi yang banyak, saya memutuskan untuk mencode ulang codenya dengan beberapa test case pada demo.
+```bash
+nano pokemon_analysis.sh
+```
+## Kode baru dalam pokemon_analysis.sh
+```bash
+#!/bin/bash
+
+# Bersihkan terminal dan tampilkan ASCII Art
+clear
+echo -e "\e[33m$(figlet -f big 'PoKeMoN')\e[0m"
+
+# Jika tidak ada argumen atau help screen tanpa file
+if [ "$1" == "--help" ]  || [ "$1" == "-h" ] || [ "$2" == "--help" ] || [ "$2" == "-h" ]; then
+    echo "Usage: ./pokemon_analysis.sh data.csv [options]"
+    echo ""
+    echo "Options:"
+    echo "  --info            Display top-used Pokemon."
+    echo "  --sort <column>   Sort by specified column."
+    echo "                      Available columns:"
+    echo "                        - usage   (Adjusted Usage %)"
+    echo "                        - raw     (Raw Usage count)"
+    echo "                        - name    (Pokemon name, alphabetical order)"
+    echo "                        - hp      (Hit Points)"
+    echo "                        - atk     (Physical Attack)"
+    echo "                        - def     (Physical Defense)"
+    echo "                        - spatk   (Special Attack)"
+    echo "                        - spdef   (Special Defense)"
+    echo "                        - speed   (Speed)"
+    echo "  --grep <name>     Search for a specific Pokemon."
+    echo "  --filter <type>   Filter by type."
+    echo "  -h, --help        Show this help screen."
+    exit 0
+fi
+
+# Cek jika tidak ada file yang diberikan
+if [ $# -lt 2 ]; then
+    echo "Usage: ./pokemon_analysis.sh data.csv [options]"
+    echo "Try './pokemon_analysis.sh --help' for more information."
+    exit 1
+fi
+
+FILE=$1
+OPTION=$2
+ARGUMENT=$3
+
+# Cek apakah file ada
+if [ ! -f "$FILE" ]; then
+    echo "Error: File '$FILE' not found!"
+    exit 1
+fi
+
+# Fungsi untuk menampilkan summary
+show_summary() {
+    highest_usage=$(awk -F',' 'NR>1 {if($2>max_usage){max_usage=$2; name=$1}} END {print name " with " max_usage}' "$FILE")
+    highest_raw=$(awk -F',' 'NR>1 {if($3>max_raw){max_raw=$3; name=$1}} END {print name " with " max_raw " uses"}' "$FILE")
+    echo "Summary of $FILE"
+    echo "Highest Adjusted Usage: $highest_usage"
+    echo "Highest Raw Usage: $highest_raw"
+}
+
+# Fungsi untuk sorting
+sort_pokemon() {
+    case "$ARGUMENT" in
+        usage) column=2;;
+        raw) column=3;;
+        name) column=1;;
+        hp) column=6;;
+        atk) column=7;;
+        def) column=8;;
+        spatk) column=9;;
+        spdef) column=10;;
+        speed) column=11;;
+        *) echo "Error: Invalid sort option"; exit 1;;
+    esac
+
+    if [ "$ARGUMENT" == "name" ]; then
+        sort -t',' -k"$column" "$FILE"
+    else
+        head -n1 "$FILE"
+        tail -n +2 "$FILE" | sort -t',' -k"$column" -nr
+    fi
+}
+
+# Fungsi untuk mencari Pokemon dengan nama spesifik
+grep_pokemon() {
+    head -n1 "$FILE"
+    tail -n +2 "$FILE" | grep -i -E "^$ARGUMENT" | sort -t',' -k2 -nr
+}
+
+# Fungsi untuk mencari berdasarkan tipe
+filter_type() {
+    head -n1 "$FILE"
+    tail -n +2 "$FILE" | awk -F',' -v type="$ARGUMENT" 'tolower($4) == tolower(type) || tolower($5) == tolower(type)' | sort -t',' -k2 -nr
+}
+
+# Eksekusi berdasarkan opsi
+case "$OPTION" in
+    --info) show_summary;;
+    --sort) sort_pokemon;;
+    --grep) grep_pokemon;;
+    --filter) filter_type;;
+    *) echo "Error: Invalid option"; exit 1;;
+esac
+```
+
+
+  ## Hasil Revisi
+  Setelah mencode ulang dengan beberapa perubahan tersebut, dan menjalankan test case serupa dan berikut hasilnya:
+  1. outputnya seharusnya Highest Adjusted Usage: Gliscor with 31.0927%
+Highest Raw Usage: Great Tusk with 563831 uses ✅
+![Image](https://github.com/user-attachments/assets/a3ba830c-c2df-450f-b1f4-aedff7c1eec1)
+  2. --grep ogerpon harusnya ada 3 yang muncul ✅
+![Image](https://github.com/user-attachments/assets/f323b61d-b853-4971-93e8-bbbc37e1306d)
+  3. --grep dark harusnya ada 1 yang muncul, yaitu darkrai ✅
+![Image](https://github.com/user-attachments/assets/821bf31b-9272-42c1-a3b0-13dd38e49c27)
+  4. --help harusnya bisa jalan tanpa perlu data.csv ✅
+![Image](https://github.com/user-attachments/assets/da6b677b-68b9-4509-af9f-60e1e9d93306)
