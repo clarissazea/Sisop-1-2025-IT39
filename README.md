@@ -624,10 +624,39 @@ done
 Tidak ada kendala yang dialami pada soal 2 ini. Input dan output sudah sesuai dengan prosedur. Pada saat test case demo berjalan lancar, tidak ada proses output yang error maupun tidak sesuai dengan output seharusnya. Tidak ada revisi dari asisten penguji, sehingga soal_2 sukses selesai.
 
 ## Dokumentasi soal_2  
-Tampilan `terminal.sh`  
-  
+![Image](https://github.com/user-attachments/assets/eae0659b-8cd8-4288-ba9e-badeae627c07)
 
+![Image](https://github.com/user-attachments/assets/668676a3-b509-432b-9aae-2fe466fa61a6)
 
+![Image](https://github.com/user-attachments/assets/d31bc81e-e70e-4a5a-97c1-0c72865e2160)
+
+![Image](https://github.com/user-attachments/assets/a6b86b6d-ae0b-4c38-b3d7-dc6e34b13f26)
+
+![Image](https://github.com/user-attachments/assets/89c61da5-8390-4e76-afd4-50fc2e2f8737)
+
+![Image](https://github.com/user-attachments/assets/e32057cc-fa64-441b-bc00-a095f7b7cc97)
+
+![Image](https://github.com/user-attachments/assets/057ec0ac-6d7e-48e6-af39-442d9a580bc9)
+
+![Image](https://github.com/user-attachments/assets/fc42d7eb-cc98-4068-bdf9-2e83a72ccaa8)
+
+![Image](https://github.com/user-attachments/assets/b0947d25-a767-4f10-b1a0-215a1fb5f7a5)
+
+![Image](https://github.com/user-attachments/assets/f3b87e38-8be4-46e8-84cf-fe6b63ccaed4)
+
+![Image](https://github.com/user-attachments/assets/50f69c89-e1af-47c9-b8fd-7d7b620d6604)
+
+![Image](https://github.com/user-attachments/assets/4a7a95e4-f57f-41fa-99bb-1c5f6daa3716)
+
+![Image](https://github.com/user-attachments/assets/2939f3c5-56a8-4c1e-914b-6a727b6133e2)
+
+![Image](https://github.com/user-attachments/assets/11dc7559-6ae5-4bee-8584-6b69a17b316c)
+
+![Image](https://github.com/user-attachments/assets/92a1bd1d-d70a-4c41-90b2-aaa99988c208)
+
+![Image](https://github.com/user-attachments/assets/ebe8e92e-3855-491b-8f0b-be620c39ddb7)
+
+![Image](https://github.com/user-attachments/assets/dfe884f8-842a-4617-bd46-4361c8b5c132)
 
 # Soal_3
 Dikerjakan oleh Muhammad Rafi' Adly (5027241082) Menggunakan 1 file script bash
