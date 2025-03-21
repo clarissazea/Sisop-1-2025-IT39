@@ -624,6 +624,10 @@ done
 Tidak ada kendala yang dialami pada soal 2 ini. Input dan output sudah sesuai dengan prosedur. Pada saat test case demo berjalan lancar, tidak ada proses output yang error maupun tidak sesuai dengan output seharusnya. Tidak ada revisi dari asisten penguji, sehingga soal_2 sukses selesai.
 
 ## Dokumentasi soal_2  
+Tampilan `terminal.sh`  
+![Image](https://github.com/user-attachments/assets/6a2fd7df-1fb0-43c6-8474-e9e80d84f568)  
+
+
 
 # Soal_3
 Dikerjakan oleh Muhammad Rafi' Adly (5027241082) Menggunakan 1 file script bash
