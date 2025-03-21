@@ -203,6 +203,8 @@ Dikerjakan oleh Ahmad Wildan Fawwaz (5027241001)
   5. Direktori `scripts` digunakan untuk menyimpan file `core_monitor.sh`, `frag_monitor.sh`, dan `manager.sh`.
   6. File `terminal.sh` digunakan untuk menampilkan menu register, login, crontab manager, dan exit.
 
+  ![Image](https://github.com/user-attachments/assets/bba3a776-207e-4bd1-8108-66e05b0d4ba6)
+
 Subsoal a. “First Step in a New World”  
 Pada soal, instruksi pertama adalah membuat direktori folder soal_2 yang di dalamnya terdapat 2 file (login.sh & register.sh) dan database /data/player.csv.
 
