@@ -240,7 +240,7 @@ Membuat file login.sh
 ```bash
 nano login.sh
 ```
-## nano login.sh  
+## login.sh  
 ```bash
 read -p "Enter your email: " EMAIL
 read -s -p "Enter password: " PASSWORD
