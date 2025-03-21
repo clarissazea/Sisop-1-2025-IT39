@@ -18,6 +18,7 @@ Poppo_siroyo.sh: Terdiri atas 4 command utama yaitu:
 
 
   1. CARA PENGERJAAN
+     
 a. Membuat Direktori dan Masuk ke Direktori
 ```bash
 mkdir soal_1 && cd soal_1
