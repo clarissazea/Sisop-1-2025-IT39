@@ -654,6 +654,7 @@ OnTheRun() {
         echo "SᕮᒪᕮSᗩI !!"
 }
 ```
+Menggunakan until loop yang berhenti sampai variabel ```i``` mencapai 170. Fungsi for loop untuk menampilkan karakter '#' secara terus-menerus. Fungsi ```echo -n "] $(( (i * 100) / j ))%"``` untuk menampilkan persentase. Fungsi ```sleep $(awk -v min=0.1 -v max=1 'BEGIN{srand(); print min+rand() * (max-min)}')``` supaya memberi jeda secara acak dengan interval 0.1 - 1 detik.
 
 ## c. Time  
 Fitur: Menampilkan live clock dengan update setiap detik.
@@ -702,6 +703,9 @@ BrainDmg() {
 }
 ```
 Menggunakan while loop supaya bisa ter-update setiap 1 detik. Untuk menampilkan task manager, menggunakan ```ps aux``` dan diurutkan berdasarkan cpu. Kemudian pipe ke fungsi ```awk '{print $1, $2, $3, $4, $7, $10, $11}'``` supaya hanya menampilkan USER, PID, %CPU, %MEM, TTY, TIME, dan COMMAND. Lalu pipe ke fungsi ```head -n 25``` supaya task manager hanya menampilkan pekerjaan yang diatas, setelah diurutkan berdasarkan cpu.
+Output Brain Damage:
+![Screenshot from 2025-03-21 07-13-39](https://github.com/user-attachments/assets/c1fa90e0-5362-4d69-af32-a2296b0a0433)
+
 ## Eksekusi
 
 ```bash
