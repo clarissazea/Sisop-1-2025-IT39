@@ -193,8 +193,18 @@ Dengan solusi tersebut, command ke-4 dapat berjalan dengan baik dan menghasilkan
 
 
 
-# Soal_2
-a. “First Step in a New World”  
+# Soal_2  
+
+Dikerjakan oleh Ahmad Wildan Fawwaz (5027241001)  
+- Pada soal ini pengerjaannya menggunakan direktori `soal_2` yang di dalamnya terdapat 3 direktori dan 9 file:
+  1. Direktori `data` digunakan untuk menyimpan file `player.csv`
+  2. File `login.sh` digunakan untuk memverifikasi akun yang sudah terdaftar di `register.sh`. Jika login berhasil, maka sistem akan menjalankan pemantauan CPU (`core_monitor.sh`) dan RAM (`frag_monitor.sh`).
+  3. Direktori `logs` digunakan untuk penyimpanan log sistem, yang digunakan oleh `core_monitor.sh` dan `frag_monitor.sh` untuk pemantauan CPU dan RAM.
+  4. File `register.sh` digunakan untuk mendaftarkan player ke dalam sistem dengan menyimpan informasi akun di database `player.csv`.
+  5. Direktori `scripts` digunakan untuk menyimpan file `core_monitor.sh`, `frag_monitor.sh`, dan `manager.sh`.
+  6. File `terminal.sh` digunakan untuk menampilkan menu register, login, crontab manager, dan exit.
+
+# subsoal a. “First Step in a New World”  
 Pada soal, instruksi pertama adalah membuat direktori folder soal_2 yang di dalamnya terdapat 2 file (login.sh & register.sh) dan database /data/player.csv.
 
 ```bash
@@ -202,8 +212,7 @@ $ mkdir soal_2 && cd soal_2
 $ nano register.sh
 ```
 Membuat file register.sh
-nano register.sh
-[Register Scripts](https://github.com/clarissazea/Sisop-1-2025-IT39/blob/3745a7a4feb319daf11c82a19ee95240568a604c/soal_2/register.sh)
+## nano register.sh  
 ```bash
 #!/bin/bash
 
@@ -232,8 +241,7 @@ Membuat file login.sh
 ```bash
 $ nano login.sh
 ```
-nano login.sh
-[Login Scripts](https://github.com/clarissazea/Sisop-1-2025-IT39/blob/3745a7a4feb319daf11c82a19ee95240568a604c/soal_2/login.sh)
+## nano login.sh  
 ```bash
 read -p "Enter your email: " EMAIL
 read -s -p "Enter password: " PASSWORD
