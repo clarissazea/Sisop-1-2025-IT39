@@ -630,6 +630,9 @@ SpeakToMe() {
 }
 ```
 Menggunakan while loop untuk menampilkan word of affirmation setiap detik. Fungsi ```curl``` untuk memanggil API, dan ```jq -r '.affirmation'``` untuk memproses JSON dari API supaya hanya menampilkan affirmation saja.
+### Output Speak to Me
+![Screenshot from 2025-03-21 23-15-08](https://github.com/user-attachments/assets/e258f1b5-1446-42ef-a265-39fb9e4ea461)
+
 
 ## b. On the Run  
 Fitur: Menampilkan progress bar dengan interval random antara 0.1 hingga 1 detik.
@@ -671,6 +674,9 @@ Time() {
 }
 ```
 Menggunakan while loop untuk memperbarui live clock setiap 1 detik. Fungsi ```date``` untuk menampilkan waktu dengan format ```YYYY-MM-DD HH:MM:SS```.
+### Output Time
+![Screenshot from 2025-03-21 23-13-34](https://github.com/user-attachments/assets/a2270bcc-fd9b-41d9-a9b6-e3333b786459)
+
 
 ## d. Money  
 Fitur: Menampilkan efek matrix dengan simbol mata uang.
@@ -691,6 +697,10 @@ Money() {
 }
 ```
 Mendeklarasikan mata uang ```$€£¥¢₹₩₿₣```. Fungsi ```y=$(tput cols)``` untuk mendapatkan kolom terminal dan ```x=$(tput lines)``` untuk mendapatkan baris terminal. Lalu menggunakan while loop untuk menampilkan cmatrix terus-menerus. Fungsi ```y2=$((RANDOM % y))``` untuk mendapatkan kolom secara acak. Fungsi ```uang2=${uang:RANDOM%${#uang}:1}``` untuk mendapatkan mata uang sesuai yang sudah dideklarasikan di awal. Fungsi ```tput cup $((RANDOM % x)) $y2``` untuk menempatkan mata uang di baris dan kolom yang acak. Lalu di-print dan menggunakan ```sleep 0.07``` untuk memberi jeda while loop selama 0.07 detik.
+### Output Money
+![Screenshot from 2025-03-21 23-14-04](https://github.com/user-attachments/assets/c0473010-d5b0-4a1e-b528-0a02f090ffaa)
+
+
 ## e. Brain Damage  
 Fitur: Menampilkan daftar proses yang sedang berjalan, diperbarui setiap detik.
 ```bash
@@ -717,7 +727,10 @@ chmod +x dsotm.sh
 ```
 Ket. : ```<Track>``` diganti lagu yang dipilih
 
-
+## Revisi Soal_3
+### On the Run
+```bash
+```
 
 # Soal_4
 
