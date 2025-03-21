@@ -170,6 +170,15 @@ Solusi yang dilakukan untuk mengatasi kendala tersebut adalah:
   
 Dengan solusi tersebut, command ke-4 dapat berjalan dengan baik dan menghasilkan output yang sesuai saat demo berlangsung.
 
+## Dokumentasi
+- Berikut adalah dokumentasi hasil eksekusi code (command nomor 4) yang tidak sesuai harapan:
+![image](https://github.com/user-attachments/assets/26b6a2a3-509e-4f2b-b30b-fa8eeab70361)
+
+- Berikut adalah dokumentasi hasil eksekusi code (command nomor 4) yang telah direvisi:
+  ![image](https://github.com/user-attachments/assets/584fe6ba-2409-4283-887c-67d58a811b9e)
+
+
+
 
 
 # Soal_2
