@@ -621,7 +621,7 @@ SpeakToMe() {
         done
 }
 ```
-
+Menggunakan while loop untuk menampilkan word of affirmation setiap detik. Fungsi ```curl``` untuk memanggil API, dan ```jq -r '.affirmation'``` untuk memproses JSON dari API supaya hanya menampilkan affirmation saja.
 
 ## b. On the Run  
 Fitur: Menampilkan progress bar dengan interval random antara 0.1 hingga 1 detik.
