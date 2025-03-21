@@ -630,7 +630,9 @@ Tidak ada kendala yang dialami pada soal 2 ini. Input dan output sudah sesuai de
 
 ![Image](https://github.com/user-attachments/assets/a6b86b6d-ae0b-4c38-b3d7-dc6e34b13f26)
 
-![Image](https://github.com/user-attachments/assets/89c61da5-8390-4e76-afd4-50fc2e2f8737)
+![Image](https://github.com/user-attachments/assets/89c61da5-8390-4e76-afd4-50fc2e2f8737)  
+
+Agar bisa sampai pada menu ini, user memilih angka 3
 
 ![Image](https://github.com/user-attachments/assets/e32057cc-fa64-441b-bc00-a095f7b7cc97)
 
