@@ -628,8 +628,6 @@ Tidak ada kendala yang dialami pada soal 2 ini. Input dan output sudah sesuai de
 
 ![Image](https://github.com/user-attachments/assets/668676a3-b509-432b-9aae-2fe466fa61a6)
 
-![Image](https://github.com/user-attachments/assets/d31bc81e-e70e-4a5a-97c1-0c72865e2160)
-
 ![Image](https://github.com/user-attachments/assets/a6b86b6d-ae0b-4c38-b3d7-dc6e34b13f26)
 
 ![Image](https://github.com/user-attachments/assets/89c61da5-8390-4e76-afd4-50fc2e2f8737)
