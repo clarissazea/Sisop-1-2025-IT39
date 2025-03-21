@@ -4,7 +4,7 @@
   
 </div>
 
-# SOAL_1
+# SOAL 1
 
 Dikerjakan oleh Clarissa Aydin Rahmazea (5027241014)
 
