@@ -17,6 +17,7 @@ Poppo_siroyo.sh: Terdiri atas 4 command utama yaitu:
 - Menampilkan genre yang paling populer di Asia setelah tanggal 31 Desember 2023 beserta jumlahnya.
 
 
+
 ## Cara Pengerjaan
      
 a. Membuat Direktori dan Masuk ke Direktori
@@ -155,7 +156,7 @@ echo "-----------------------------------------------"
 echo
 ```
 
-
+## Kendala yang dialami
 
 
 
