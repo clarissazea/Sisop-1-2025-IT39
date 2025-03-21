@@ -178,6 +178,14 @@ Dengan solusi tersebut, command ke-4 dapat berjalan dengan baik dan menghasilkan
   ![image](https://github.com/user-attachments/assets/584fe6ba-2409-4283-887c-67d58a811b9e)
 
 
+- Screenshot input & output command 1
+  ![image](https://github.com/user-attachments/assets/2431f8b7-6ecd-4597-8b21-c241dabaed2b)
+- Screenshot input & output command 2
+  ![image](https://github.com/user-attachments/assets/1c4bed83-c594-452a-87be-5d341d7d8326)
+- Screenshot input & output command 3
+  ![image](https://github.com/user-attachments/assets/dd9f027f-d43d-4448-aa23-4cc5d9f80964)
+- Screenshot input & output command 4
+  ![image](https://github.com/user-attachments/assets/17f7808b-b272-4852-b2d3-fceb669738ec)
 
 
 
